@@ -1,0 +1,18 @@
+## Compilation artefacts ########
+*.pyc
+*.d
+*.o
+*.ko
+*.gcno
+*.gcda
+dependencies.lock
+*.swp
+.*.swp
+
+## Project files ######
+build/*
+output/*
+SD/*
+env.sh
+include/autoconf.mk*
+
