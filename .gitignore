@@ -6,6 +6,7 @@
 *.gcno
 *.gcda
 dependencies.lock
+sunxi-pack/chips/sun6i/bin/u-boot-sun6i.bin
 *.swp
 .*.swp
 
