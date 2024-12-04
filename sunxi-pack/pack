@@ -13,7 +13,7 @@ PACK_SIG="none"
 PACK_MODE="normal"
 
 export PATH=${TOOLS_DIR}/mod_update:${TOOLS_DIR}/eDragonEx:${TOOLS_DIR}/fsbuild200:$PATH
-export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:${TOOLS_DIR}/libs
+#export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:${TOOLS_DIR}/libs
 
 
 show_help()
@@ -156,6 +156,7 @@ do_pack_linux()
 	update_mbr sys_partition.bin  4
     	
 	## DK bootloader.fex
+	#strace -o strace.out fsbuild boot-resource.ini split_xxxx.fex
 	fsbuild boot-resource.ini split_xxxx.fex
     	mv boot-resource.fex bootloader.fex
 
