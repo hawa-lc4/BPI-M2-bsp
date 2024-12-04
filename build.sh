@@ -2,8 +2,8 @@
 # (c) 2015, Leo Xu <otakunekop@banana-pi.org.cn>
 # Build script for BPI-M2-BSP 2015.07.29
 
-#exec 1>build-sh.log
-#exec 2>&1
+exec 1>build-sh.log
+exec 2>&1
 
 MACH="sun6i"
 BOARD=BPI_M2_LCD7
