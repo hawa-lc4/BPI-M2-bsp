@@ -1,0 +1,6 @@
+#1   pmu_twi_addr = 0x34  am bus 1
+     linux-sunxi/drivers/power/axp_power/axp22-board.c
+
+#2   ft5x_ts = 0x38  am bus 1
+     touchscreen
+
