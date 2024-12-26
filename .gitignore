@@ -7,7 +7,8 @@
 *.gcda
 *.swp
 .*.swp
-*.log*
+*.log.*
+*.err.*
 
 ## Project files ######
 build/*
