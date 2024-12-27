@@ -1,12 +1,22 @@
 ;A31 BOX application
 ;---------------------------------------------------------------------------------------------------------
-; 说明： 脚本中的字符串区分大小写，用户可以修改"="后面的数值，但是不要修改前面的字符串
-; 描述gpio的形式：Port:端口+组内序号<功能分配><内部电阻状态><驱动能力><输出电平状态>
+; Explanation: The string in the script is case sensitive. The user can modify the value after "=", but do not modify the previous string.
+; Describe the form of gpio: Port: Port + Group No. <Function Allocation> <Internal Resistor Status> <Drive Capability> <Output Level Status>
+;
+; Port Definitions - Description of the GPIO configuration in the form:
+; port:<port><mux feature><pullup/down><drive capability><output level>
+; where:
+; <port> is the port to configure (ie. PH15)
+; <mux feature> is the function to configure the port for, mux 0 is as input, mux 1 as output and for 2-7 see A10/PIO, A13/PIO, or A20/PIO for details.
+; <pullup/down> is 0 = disabled; 1 = pullup enabled; 2 = pulldown enabled (only valid when port is an input)
+; <drive capability> defines the output drive in mA, values are 0-3 corresponding to 10mA, 20mA, 30mA and 40mA.
+; <output level> sets the initial output level for the port; 0 = low; 1 = high (only valid for outputs)
+; The <pullup/down> <drive capability> and <output level> can be set to <default> which means don't change. Any trailing <default> options can be omitted
 ;---------------------------------------------------------------------------------------------------------
 
 [product]
 version = "100"
-machine = "bpi-m2-720p"
+machine = "bpi-m2-lcd"
 
 [platform]
 eraseflag   = 1
@@ -307,20 +317,20 @@ uart_cts        = port:PA07<4><1><default><default>
 [uart_para2]
 uart_used       = 1
 uart_port       = 2
-uart_type       = 4
+uart_type       = 2
 uart_tx         = port:PG06<2><1><default><default>
 uart_rx         = port:PG07<2><1><default><default>
-uart_rts        = port:PG08<2><1><default><default>
-uart_cts        = port:PG09<2><1><default><default>
+;uart_rts        = port:PG08<2><1><default><default>
+;uart_cts        = port:PG09<2><1><default><default>
 
 [uart_para3]
 uart_used       = 0
 uart_port       = 3
-uart_type       = 4
+uart_type       = 2
 uart_tx         = port:PB05<3><1><default><default>
 uart_rx         = port:PB06<3><1><default><default>
-uart_rts        = port:PB04<3><1><default><default>
-uart_cts        = port:PB00<3><1><default><default>
+;uart_rts        = port:PB04<3><1><default><default>
+;uart_cts        = port:PB00<3><1><default><default>
 
 [uart_para4]
 uart_used       = 0
@@ -328,17 +338,17 @@ uart_port       = 4
 uart_type       = 2
 uart_tx         = port:PG17<2><1><default><default>
 uart_rx         = port:PG18<2><1><default><default>
-uart_rts        = port:PB04<3><1><default><default>
-uart_cts        = port:PB00<3><1><default><default>
+;uart_rts        = port:PB04<3><1><default><default>
+;uart_cts        = port:PB00<3><1><default><default>
 
 [uart_para5]
 uart_used       = 1
 uart_port       = 5
-uart_type       = 4
+uart_type       = 2
 uart_tx         = port:PE04<3><1><default><default>
 uart_rx         = port:PE05<3><1><default><default>
-uart_rts        = port:PE06<3><1><default><default>
-uart_cts        = port:PE07<3><1><default><default>
+;uart_rts        = port:PE06<3><1><default><default>
+;uart_cts        = port:PE07<3><1><default><default>
 
 ;----------------------------------------------------------------------------------
 ;spi configuration
@@ -418,7 +428,7 @@ rtp_exchange_x_y_flag      = 0
 ;notice ---    tp_int_port &  tp_io_port use the same port
 ;----------------------------------------------------------------------------------
 [ctp_para]
-ctp_used            = 0
+ctp_used            = 1
 ctp_name            = "ft5x_ts"
 ctp_twi_id          = 1
 ctp_twi_addr        = 0x38
@@ -430,6 +440,7 @@ ctp_exchange_x_y_flag = 0
 
 ctp_int_port        = port:PG00<6><default><default><default>
 ctp_wakeup          = port:PG01<1><default><default><1>
+ctp_io_port         = port:PG00<0><default><default><default>
 
 ;--------------------------------------------------------------------------------
 ; CTP automatic detection configuration
@@ -437,7 +448,7 @@ ctp_wakeup          = port:PG01<1><default><default><1>
 ;Module name postposition 1 said detection, 0 means no detection. 
 ;--------------------------------------------------------------------------------
 [ctp_list_para]
-ctp_det_used              = 0
+ctp_det_used              = 1
 ft5x_ts                   = 1
 gt82x                     = 0
 gslX680                   = 0
@@ -531,11 +542,11 @@ nand1_ndqs          = port:PH08<2><default><default><default>
 disp_init_enable         = 1
 disp_mode                = 0
 
-screen0_output_type      = 3
-screen0_output_mode      = 5
+screen0_output_type      = 1
+screen0_output_mode      = 4
 
-screen1_output_type      = 1
-screen1_output_mode      = 4
+screen1_output_type      = 3
+screen1_output_mode      = 5
 
 fb0_format               = 10
 fb0_pixel_sequence       = 0
@@ -593,7 +604,7 @@ lcd1_hue                 = 50
 ;smart_color           90:normal lcd screen 65:retina lcd screen(9.7inch)
 ;----------------------------------------------------------------------------------
 [lcd0_para]
-lcd_used            = 0
+lcd_used            = 1
 lcd_driver_name     = "default_lcd"
 lcd_if              = 0
 lcd_hv_if           = 0
@@ -621,10 +632,14 @@ lcd_cmap_en         = 0
 
 deu_mode            = 0
 lcdgamma4iep        = 22
-smart_color        = 90
+smart_color         = 90
 
+lcd_bl_en_used      = 0
 lcd_bl_en           = port:PG03<1><0><default><1>
+lcd_power_used      = 0
 lcd_power           = port:power2<1><0><default><1>
+;lcd_power           = port:PG04<1><0><default><1>
+lcd_pwm_used        = 0
 lcd_pwm             = port:PH13<2><0><default><default>
 
 
@@ -913,7 +928,7 @@ csi_power_en        =
 csi_stby            = port:PH16<1><default><default><0>
 
 [csi1_para]
-csi_used            = 1
+csi_used            = 0
 
 csi_dev_qty         = 1
 csi_stby_mode       = 0
@@ -1324,7 +1339,7 @@ bt_rst              =
 ;rx_data_mode 		:0: 16bit linear PCM; 1: 8bit linear PCM; 2: 8bit u-law; 3: 8bit a-law
 ;--------------------------------------------------------------------------------
 [i2s_para]
-i2s_used            = 1
+i2s_used            = 0
 i2s_channel         = 2
 i2s_master          = 1
 i2s_select          = 0
@@ -1414,7 +1429,7 @@ spdif_din           = port:PH27<3><1><default><default>
 ;main_mic_vol: main mic(mic1) vol,use for phone main mic call
 ;--------------------------------------------------------------------------------
 [audio_para]
-audio_used         = 1
+audio_used         = 0
 audio_hp_ldo       = "none"
 headphone_vol      = 0x3b
 earpiece_vol       = 0x3b
@@ -1448,42 +1463,54 @@ axp_0            = "axp22_dldo4"
 ;----------------------------------------------------------------------------------
 [boot_init_gpio]                    
 use                = 0
+;gpio_pin_1         = port:PH13<1><default><default><1>   ;PH13 = LCD-PWM
 gpio_pin_1         =
 
 ;----------------------------------------------------------------------------------                                   
-;gpio configuration 
+; Describe the form of gpio: port: Port + Group No. <FA> <IRS> <DC> <OLS>
+; <Function Allocation> <Internal Resistor Status> <Drive Capability> <Output Level Status>
+; Port Definitions - Description of the GPIO configuration in the form:
+; port:<port><mux feature><pullup/down><drive capability><output level>
+; where:
+; <port> is the port to configure (ie. PH15)
+; <mux feature> is the function to configure the port for, mux 0 is as input, mux 1 as output and for 2-7 see A10/PIO, A13/PIO, or A20/PIO for details.
+; <pullup/down> is 0 = disabled; 1 = pullup enabled; 2 = pulldown enabled (only valid when port is an input)
+; <drive capability> defines the output drive in mA, values are 0-3 corresponding to 10mA, 20mA, 30mA and 40mA.
+; <output level> sets the initial output level for the port; 0 = low; 1 = high (only valid for outputs)
+; The <pullup/down> <drive capability> and <output level> can be set to <default> which means don't change. Any trailing <default> options can be omitted
+;gpio configuration
 ;----------------------------------------------------------------------------------
 [gpio_para]                    
 gpio_used                  = 1
-gpio_pin_1                 = port:PG10<1><default><default><default>
-gpio_pin_2                 = port:PH19<1><default><default><default>
-gpio_pin_3                 = port:PH18<1><default><default><default>
-gpio_pin_4                 = port:PH09<1><default><default><default>
-gpio_pin_5                 = port:PB00<1><default><default><default>
-gpio_pin_6                 = port:PB01<1><default><default><default>
-gpio_pin_7                 = port:PG12<1><default><default><default>
-gpio_pin_8                 = port:PG13<1><default><default><default>
-gpio_pin_9                 = port:PG16<1><default><default><default>
-gpio_pin_10                = port:PG15<1><default><default><default>
-gpio_pin_11                = port:PG14<1><default><default><default>
-gpio_pin_12                = port:PB07<1><default><default><default>
-gpio_pin_13                = port:PB02<1><default><default><default>
-gpio_pin_14                = port:PE04<1><default><default><default>
-gpio_pin_15                = port:PE05<1><default><default><default>
-gpio_pin_16                = port:PE06<1><default><default><default>
-gpio_pin_17                = port:PG07<1><default><default><default>
-gpio_pin_18                = port:PH10<1><default><default><default>
-gpio_pin_19                = port:PB03<1><default><default><default>
-gpio_pin_20                = port:PE07<1><default><default><default>
-gpio_pin_21                = port:PM02<1><default><default><default>
-gpio_pin_22                = port:PG09<1><default><default><default>
-gpio_pin_23                = port:PH11<1><default><default><default>
-gpio_pin_24                = port:PH12<1><default><default><default>
-gpio_pin_25                = port:PG08<1><default><default><default>
-gpio_pin_26                = port:PB04<1><default><default><default>
-gpio_pin_27                = port:PG06<1><default><default><default>
-gpio_pin_28                = port:PB06<1><default><default><default>
-gpio_pin_29                = port:PB05<1><default><default><default>
+gpio_pin_1                 = port:PG10<1><0><default><1>
+gpio_pin_2                 = port:PH19<0><default><default><default>
+gpio_pin_3                 = port:PH18<0><default><default><default>
+gpio_pin_4                 = port:PH09<0><default><default><default>
+gpio_pin_5                 = port:PB00<0><default><default><default>
+gpio_pin_6                 = port:PB01<0><default><default><default>
+gpio_pin_7                 = port:PG12<0><default><default><default>
+gpio_pin_8                 = port:PG13<0><default><default><default>
+gpio_pin_9                 = port:PG16<0><default><default><default>
+gpio_pin_10                = port:PG15<0><default><default><default>
+gpio_pin_11                = port:PG14<0><default><default><default>
+gpio_pin_12                = port:PB07<0><default><default><default>
+gpio_pin_13                = port:PB02<0><default><default><default>
+;gpio_pin_14                = port:PE04<3><1><default><default>
+;gpio_pin_15                = port:PE05<3><1><default><default>
+gpio_pin_16                = port:PE06<0><default><default><default>
+;gpio_pin_17                = port:PG07<2><1><default><default>
+gpio_pin_18                = port:PH10<0><default><default><default>
+gpio_pin_19                = port:PB03<0><default><default><default>
+gpio_pin_20                = port:PE07<0><default><default><default>
+gpio_pin_21                = port:PM02<3><default><default><default>
+gpio_pin_22                = port:PG09<0><default><default><default>
+gpio_pin_23                = port:PH11<0><default><default><default>
+gpio_pin_24                = port:PH12<0><default><default><default>
+gpio_pin_25                = port:PG08<0><default><default><default>
+gpio_pin_26                = port:PB04<0><default><default><default>
+;gpio_pin_27                = port:PG06<2><1><default><default>
+;gpio_pin_28                = port:PB06<4><default><default><default>
+;gpio_pin_29                = port:PB05<4><default><default><default>
 gpio_pin_30                = port:PG11<1><default><default><default>
 
 ;-------------------------------------------------------------------------------------
@@ -1590,16 +1617,16 @@ gpio_pin_30                = port:PG11<1><default><default><default>
 [pmu_para]
 pmu_used                   = 1
 pmu_twi_addr               = 0x34
-pmu_twi_id                 = 3
+pmu_twi_id                 = 1
 pmu_irq_id                 = 0
 pmu_battery_rdc            = 100
-pmu_battery_cap            = 0
+pmu_battery_cap            = 7340
 pmu_batdeten               = 1
 pmu_runtime_chgcur         = 900
 pmu_earlysuspend_chgcur    = 900
 pmu_suspend_chgcur         = 1500
 pmu_shutdown_chgcur        = 1500
-pmu_init_chgvol            = 4200
+pmu_init_chgvol            = 4250
 pmu_init_chgend_rate       = 15
 pmu_init_chg_enabled       = 1
 pmu_init_adc_freq          = 800
@@ -1644,20 +1671,20 @@ pmu_bat_para32             = 100
 
 pmu_usbvol_limit           = 0
 pmu_usbcur_limit           = 0
-pmu_usbvol                 = 4000
+pmu_usbvol                 = 4400
 pmu_usbcur                 = 0
 pmu_usbvol_pc              = 4400
 pmu_usbcur_pc              = 500
-pmu_pwroff_vol             = 3300
+pmu_pwroff_vol             = 3200
 pmu_pwron_vol              = 2600
 pmu_pekoff_time            = 4000
-pmu_pekoff_func            = 1
+pmu_pekoff_func            = 0
 pmu_pekoff_en              = 1
 pmu_peklong_time           = 1000
 pmu_pekon_time             = 1000
 pmu_pwrok_time             = 64
-pmu_battery_warning_level1 = 3
-pmu_battery_warning_level2 = 0
+pmu_battery_warning_level1 = 20
+pmu_battery_warning_level2 = 10
 pmu_restvol_adjust_time    = 60
 pmu_ocv_cou_adjust_time    = 60
 pmu_chgled_func            = 0
@@ -1821,7 +1848,7 @@ cpus_uart_debug_used = 1
 ;auto_hpd     (auto detect hdmi/cvbs/ypbpr plug in)
 ;----------------------------------------------------------------------------------
 [boot_disp]
-output_type              = 3
+output_type              = 1
 output_mode              = 5
 auto_hpd                 = 1
-
+;tv_mode                  = 11

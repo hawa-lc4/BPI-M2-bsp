@@ -281,7 +281,7 @@ twi_scl         = port:PH16<2><default><default><default>
 twi_sda         = port:PH17<2><default><default><default>
 
 [twi2_para]
-twi_used        = 0
+twi_used        = 1
 twi_scl         = port:PH18<2><default><default><default>
 twi_sda         = port:PH19<2><default><default><default>
 
@@ -1019,7 +1019,7 @@ sdc_isio          = 0
 sdc_regulator     = "none"
 
 [mmc1_para]
-sdc_used          = 1
+sdc_used          = 0
 sdc_detmode       = 4
 sdc_buswidth      = 4
 sdc_clk           = port:PG00<2><1><2><default>
@@ -1056,7 +1056,7 @@ sdc_isio          = 1
 sdc_regulator     = "none"
 
 [mmc3_para]
-sdc_used          = 1
+sdc_used          = 0
 sdc_detmode       = 2
 sdc_buswidth      = 4
 sdc_clk           = port:PA10<2><1><2><default>
@@ -1463,8 +1463,8 @@ axp_0            = "axp22_dldo4"
 ;----------------------------------------------------------------------------------
 [boot_init_gpio]                    
 use                = 0
-;gpio_pin_1         = port:PH13<1><default><default><1>
-gpio_pin_1         = 
+;gpio_pin_1         = port:PH13<1><default><default><1>   ;PH13 = LCD-PWM
+gpio_pin_1         =
 
 ;----------------------------------------------------------------------------------                                   
 ; Describe the form of gpio: port: Port + Group No. <FA> <IRS> <DC> <OLS>
@@ -1620,13 +1620,13 @@ pmu_twi_addr               = 0x34
 pmu_twi_id                 = 1
 pmu_irq_id                 = 0
 pmu_battery_rdc            = 100
-pmu_battery_cap            = 5000
+pmu_battery_cap            = 7340
 pmu_batdeten               = 1
 pmu_runtime_chgcur         = 900
 pmu_earlysuspend_chgcur    = 900
 pmu_suspend_chgcur         = 1500
 pmu_shutdown_chgcur        = 1500
-pmu_init_chgvol            = 4200
+pmu_init_chgvol            = 4250
 pmu_init_chgend_rate       = 15
 pmu_init_chg_enabled       = 1
 pmu_init_adc_freq          = 800
@@ -1675,7 +1675,7 @@ pmu_usbvol                 = 4400
 pmu_usbcur                 = 0
 pmu_usbvol_pc              = 4400
 pmu_usbcur_pc              = 500
-pmu_pwroff_vol             = 3300
+pmu_pwroff_vol             = 3200
 pmu_pwron_vol              = 2600
 pmu_pekoff_time            = 4000
 pmu_pekoff_func            = 0
