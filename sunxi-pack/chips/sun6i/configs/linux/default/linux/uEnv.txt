@@ -2,9 +2,7 @@ bpi=bananapi
 board=bpi-m2
 chip=a31s
 service=linux
-#kernel=boot.fex
 kernel=uImage
-scrip=script.bin
 script=script.bin
 
 ahello=echo Banana-Pi ${board} chip: $chip Service: $service
