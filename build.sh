@@ -117,5 +117,5 @@ case $mode in
 esac
 echo
 
-echo -e "\033[31m Build success!\033[0m"
+echo -e "\033[31m Build finished!\033[0m"
 echo
