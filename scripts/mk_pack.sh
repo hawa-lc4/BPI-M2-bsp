@@ -14,19 +14,19 @@ PACK_ROOT="$TOPDIR/sunxi-pack"
 PLATFORM="linux"
 #PLATFORM="dragonboard"
 
-pack_bootloader()
-{
-  BOARD=$1
-  (
+#pack_bootloader()
+#{
+#  BOARD=$1
+#  (
   cd $PACK_ROOT
   echo "pack -c $MACH -p $PLATFORM -b $BOARD"
   ./pack -c $MACH -p $PLATFORM -b $BOARD 
-  )
-  $TOPDIR/scripts/bootloader.sh $BOARD
-}
+#  )
+#  $TOPDIR/scripts/bootloader.sh $BOARD
+#}
 
 
-BOARDS=`(cd sunxi-pack/chips/$MACH/configs/linux ; ls -1d BPI*)`
-for IN in $BOARDS ; do
-  pack_bootloader $IN
-done 
+#BOARDS=`(cd sunxi-pack/chips/$MACH/configs/linux ; ls -1d BPI*)`
+#for IN in $BOARDS ; do
+#  pack_bootloader $IN
+#done 
