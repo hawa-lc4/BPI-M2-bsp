@@ -4,3 +4,10 @@
 #2   ft5x_ts = 0x38  am bus 1
      touchscreen
 
+#3   Aufbau der 100MB Partition siehe scripts/dd_download.sh
+     und die durch "pack" erzeugten Dateien in output/BPI_M2_LCD7/pack
+
+#4   Anpassungen von env.cfg sys_config.fex nur in
+     "sunxi-pack/chips/sun6i/configs/linux/BPI_M2_LCD7" erforderlich
+
+
