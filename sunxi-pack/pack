@@ -48,12 +48,12 @@ show_help()
     		for platformp in $(find chips/$chip/configs/ -mindepth 1 -maxdepth 1 -type d)
     		do
         		platform=`basename $platformp`
-        		printf "      $platform\n"
+        		printf "              $platform\n"
 
         		for boardp in $(find chips/$chip/configs/$platform/ -mindepth 1 -maxdepth 1 -type d)
         		do
             			board=`basename $boardp`
-            			printf "                $board\n"
+            			printf "                      $board\n"
         		done
     		done
 
