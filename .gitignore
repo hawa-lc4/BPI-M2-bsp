@@ -22,3 +22,4 @@ linux-sunxi/bImage
 linux-sunxi/output/lib/modules/3.3.0-BPI-M2-Kernel/*
 sunxi-pack/chips/sun6i/bin/u-boot-sun6i.bin
 u-boot-sunxi/tools/sunxi_env_gen
+chosen_board.mk
