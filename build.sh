@@ -40,6 +40,8 @@ R="${SD}/BPI-ROOT"
 	#
 	mkdir -p $B/bananapi/${board}
 	cp -a $T/sunxi-pack/chips/${MACH}/configs/linux/default/linux $B/bananapi/${board}/
+	cp -a $T/sunxi-pack/chips/${MACH}/configs/linux/${BOARD}/sys_config.fex $B/bananapi/${board}/linux/
+	cp -a $T/output/${BOARD}/pack/sys_config.bin $B/bananapi/${board}/linux/script.bin
 	cp -a $T/linux-sunxi/arch/arm/boot/uImage $B/bananapi/${board}/linux/uImage
 
 	#
