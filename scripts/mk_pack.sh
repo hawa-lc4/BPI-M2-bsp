@@ -17,12 +17,12 @@ PLATFORM="linux"
 #pack_bootloader()
 #{
 #  BOARD=$1
-#  (
+  (
   cd $PACK_ROOT
   echo "pack -c $MACH -p $PLATFORM -b $BOARD"
   ./pack -c $MACH -p $PLATFORM -b $BOARD 
-#  )
-#  $TOPDIR/scripts/bootloader.sh $BOARD
+  )
+  $TOPDIR/scripts/bootloader.sh $BOARD
 #}
 
 
