@@ -5,7 +5,7 @@ service=linux
 kernel=uImage
 script=script.bin
 
-ahello=echo Banaan Pi ${board} chip: $chip Service: $service
+ahello=echo Banana Pi ${board} chip: $chip Service: $service
 
 aboot=if fatload $device $partition 0x43100000 ${bpi}/berryboot.img; then bootm 0x48000000 0x43100000; else bootm 0x48000000; fi
 aload_script=fatload $device $partition 0x43000000 ${bpi}/${board}/${service}/${script}
@@ -21,7 +21,7 @@ uenvcmd=run ahello aload_script aload_kernel aboot
 #
 
 # ref. sys_config.fex, use default script.bin
-bootargs=console=ttyS0,115200 console=tty1 board=bpi-m2 root=/dev/mmcblk0p2 rootwait init=/init loglevel=8 bootmenutimeout=10 datadev=mmcblk0p2
+bootargs=console=ttyS0,115200 console=tty1 board=bpi-m2 root=/dev/mmcblk0p2 rw rootfstype=ext4 rootwait init=/init loglevel=7 bootmenutimeout=10 datadev=mmcblk0p2 disp.screen0_output_type=1
 
 # output HDMI 1080P (type:3 mode:10)
 #bootargs=console=ttyS0,115200 console=tty1 board=bpi-m2 root=/dev/mmcblk0p2 rootwait init=/init loglevel=8 bootmenutimeout=10 datadev=mmcblk0p2 disp.screen0_output_type=3 disp.screen0_output_mode=10 disp.screen1_output_type=3 disp.screen1_output_mode=10
