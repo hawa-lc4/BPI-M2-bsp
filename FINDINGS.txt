@@ -10,4 +10,6 @@
 #4   Anpassungen von env.cfg sys_config.fex nur in
      "sunxi-pack/chips/sun6i/configs/linux/BPI_M2_LCD7" erforderlich
 
+#5   GPIO MUX-function Fu7 bedeutet I/O disabled
+
 
