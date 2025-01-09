@@ -1,0 +1,5 @@
+Get boot structure of systemd with command:  systemctl list-dependencies
+Place prep-gmac-gpio.sh to folder /root/.scripts/
+Place prep-gmac-gpio.service to folder /etc/systemd/system/
+systemctl daemon-reload
+systemctl enable prep-gmac-gpio.service

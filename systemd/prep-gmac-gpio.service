@@ -1,0 +1,12 @@
+[Unit]
+Description=Set GPIOs in correct state for use of ethernet device sunxi-gmac
+After=basic.target
+Before=networking.service
+
+[Service]
+ExecStart=/bin/bash /root/.scripts/prep-gmac-gpio.sh
+Type=simple
+
+[Install]
+RequiredBy=networking.service
+WantedBy=multi-user.target
