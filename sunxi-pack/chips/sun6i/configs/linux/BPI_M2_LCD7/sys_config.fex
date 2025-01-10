@@ -292,6 +292,13 @@ twi_scl         = port:PB05<4><default><default><default>
 twi_sda         = port:PB06<4><default><default><default>
 
 ;----------------------------------------------------------------------------------
+;Dallas 1wire configuration
+;----------------------------------------------------------------------------------
+[w1_para]
+w1_used         = 1
+w1_gpio         = port:PM02<3><default><default><default>
+
+;----------------------------------------------------------------------------------
 ;uart configuration
 ;uart_type ---  2 (2 wire), 4 (4 wire), 8 (8 wire, full function)
 ;----------------------------------------------------------------------------------
@@ -1500,7 +1507,7 @@ gpio_pin_17                = port:PG07<2><1><default><default>
 gpio_pin_18                = port:PH10<0><default><default><default>
 gpio_pin_19                = port:PB03<0><default><default><default>
 gpio_pin_20                = port:PE07<0><default><default><default>
-gpio_pin_21                = port:PM02<3><1><1><1>
+gpio_pin_21                = port:PM02<3><default><default><default>
 gpio_pin_22                = port:PG09<0><default><default><default>
 gpio_pin_23                = port:PH11<0><default><default><default>
 gpio_pin_24                = port:PH12<0><default><default><default>
