@@ -52,6 +52,7 @@ R="${SD}/BPI-ROOT"
 	rm -rf $R/lib/modules
 	mkdir -p $R/lib/modules
 	cp -a $T/linux-sunxi/output/lib/modules/${kernel} $R/lib/modules
+	cp -a $T/rootfs/linux/kernel_firmware_files/* $R/lib/modules/${kernel}
 	#
 	## create files for bpi-tools & bpi-migrate
 	#
@@ -60,6 +61,41 @@ R="${SD}/BPI-ROOT"
 	(cd $R ; tar czvf $SD/BOOTLOADER-${board}.tgz usr/lib/u-boot/bananapi)
 
 	return #SKIP
+}
+
+cp_to_sdcard() {
+	T="$TOPDIR"
+	SD="$T/SD"
+	U="${SD}/100MB"
+	B="${SD}/BPI-BOOT"
+	R="${SD}/BPI-ROOT"
+
+	if [ -b /dev/sdc ]; then
+		echo "Copying bootloader ..."
+		(cd $U ; gunzip -c ${BOARD}.img.gz | dd of=/dev/sdc bs=1024 seek=8 status=progress)
+		echo "Copying boot-FS ..."
+		mp_c1=`mount | grep sdc1 | cut -f 3 -d " "`
+		if [ -z ${mp_c1} ]; then
+			mount /dev/sdc1 /mnt
+			cp -rf $B/bananapi /mnt/
+			umount /dev/sdc1
+		else
+			cp -rf $B/bananapi ${mp_c1}/
+		fi
+		echo "Copying kernel modules to root-FS ..."
+		mp_c2=`mount | grep sdc2 | cut -f 3 -d " "`
+		if [ -z ${mp_c1} ]; then
+			mount /dev/sdc2 /mnt
+			cp -rf $R/lib /mnt/
+			umount /dev/sdc2
+		else
+			cp -rf $R/lib ${mp_c2}/
+		fi
+	else
+		echo "ERROR: SD card not available as device /dev/sdc"
+	fi
+
+	return
 }
 
 list_boards() {
@@ -85,11 +121,12 @@ echo "--------------------------------------------------------------------------
 echo "	1. Build all, uboot and kernel and pack to download images."
 echo "	2. Build uboot only."
 echo "	3. Build kernel only."
-echo "	4. kernel configure."
+echo "	4. Configure kernel."
 echo "	5. Pack the builds to target download image, this step must execute after u-boot,"
 echo "	   kernel and rootfs build out"
-echo "	6. update files for SD"
-echo "	7. Clean all build."
+echo "	6. Update files for SD"
+echo "	7. Copy all parts from SD folder to SD card"
+echo "	8. Clean all build."
 echo "--------------------------------------------------------------------------------"
 
 if [ -z "$MODE" ]; then
@@ -115,7 +152,8 @@ case $mode in
 	4) make kernel-config;;
 	5) make pack;;
 	6) cp_download_files;;
-	7) make clean;;
+	7) cp_to_sdcard;;
+	8) make clean;;
 esac
 echo
 
